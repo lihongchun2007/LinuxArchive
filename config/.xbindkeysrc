@@ -1,0 +1,34 @@
+#"thunar"
+#"dolphin"
+"nautilus"
+  m:0x0 + c:71
+  F5
+
+"dmenu_run -b -p '>>' -nb '#0f0f0f' -nf '#ffffff' -sb '#1793d1' -sf '#eeeeee' "
+  m:0x0 + c:67
+  F1
+
+#"konsole --hide-menubar --hide-tabbar -e tmux"
+"gnome-terminal --hide-menubar"
+  m:0x0 + c:70
+  F4
+
+##Toggle the touchpad on|off
+#"synclient TouchpadOff=`synclient -l | grep -ce TouchpadOff.*0`"
+#   m:0x0 + c:199
+#   XF86TouchpadToggle
+#
+##increase volume
+#"amixer set Master playback 1+"
+#   m:0x0 + c:123
+#   XF86AudioRaiseVolume
+#
+##decrase volume
+#"amixer set Master playback 1-"
+#   m:0x0 + c:122
+#   XF86AudioLowerVolume
+#
+## Toggle mute
+#"amixer set Master toggle"
+#   m:0x0 + c:121
+#   XF86AudioMute
