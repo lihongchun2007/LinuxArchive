@@ -1,3 +1,3 @@
-# LinuxConfigs
-Configuration files of my Arch Linux 
+# LinuxArchive
+Configuration files and useful tools of my Arch Linux.
 
