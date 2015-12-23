@@ -99,6 +99,14 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+#export PATH=$PATH:/home/lee/.bin/adt-bundle-linux-x86_64-20130522/sdk/build-tools/android-4.2.2:/home/lee/.bin/adt-bundle-linux-x86_64-20130522/sdk/platform-tools
+#
+##NS2 configuration
+#export LD_LIBRARY_PATH=$PATH:~/Documents/code/ns-allinone-2.35/otcl-1.14:~/Documents/code/ns-allinone-2.35/lib
+#export TCL_LIBRARY=$PATH:~/Documents/code/ns-allinone-2.35/tcl8.5.10/library
+#export PATH=$PATH:~/Documents/code/ns-allinone-2.35/ns-2.35:~/Documents/code/ns-allinone-2.35/nam-1.15
+
+
 #alias
 alias vi=vim
 
@@ -106,5 +114,31 @@ alias vi=vim
 [[ $- != *i* ]] && return
 [[ -z "$TMUX" ]] && exec tmux
 
-#Configuration of path
+##ibus configuration
+#export GTK_IM_MODULE=ibus
+#export XMODIFIERS=@im=ibus
+#export QT_IM_MODULE=ibus
+
+extract () {
+  if [ -f $1 ] ; then
+      case $1 in
+          *.tar.bz2)   tar xvjf $1    ;;
+          *.tar.gz)    tar xvzf $1    ;;
+          *.bz2)       bunzip2 $1     ;;
+          *.rar)       rar x $1       ;;
+          *.gz)        gunzip $1      ;;
+          *.tar)       tar xvf $1     ;;
+          *.tbz2)      tar xvjf $1    ;;
+          *.tgz)       tar xvzf $1    ;;
+          *.zip)       unzip $1       ;;
+          *.Z)         uncompress $1  ;;
+          *.7z)        7z x $1        ;;
+          *)           echo "don't know how to extract '$1'..." ;;
+      esac
+  else
+      echo "'$1' is not a valid file!"
+  fi
+}
+
+export PYTHONPATH=$PYTHONPATH:/home/lee/workspace/caffe/python/:/home/lee/workspace/BING-Objectness-master/build/
 export PATH=$PATH:~/.bin/
