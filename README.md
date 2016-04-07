@@ -1,3 +1,3 @@
-# LinuxArchive
-Configuration files and useful tools of my Arch Linux.
+# ComputerBox
 
+Tools and configuration files of my computer runing Linux and Windows.
