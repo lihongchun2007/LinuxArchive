@@ -1,0 +1,72 @@
+#!/bin/bash
+
+#########################################################################
+# File Name: weather.sh
+# Author: Li Hongchun
+# Mail: lihongchun2007@foxmail.com
+# Created Time: Thu 07 Apr 2016 01:01:45 PM CST
+# Inspired by the article at https://www.howtoforge.com/tutorial/how-to-practically-use-your-linux-terminal/ .
+#########################################################################
+
+SHOW_HELP=0
+CITY=""
+SHOW_DETAIL=0
+
+function showUsage {
+    echo "Usage:"
+    echo "    weather [OPTION] [CITY]"
+	echo ""
+	echo "Description:"
+    echo "    Show the weather of CITY. Data are from http://wttr.in."
+	echo ""
+    echo "-d, --detail"
+    echo "        Show the detailed weather information of CITY"
+	echo "-h, --help"
+	echo "        Show this help message"
+}
+
+function getWeatherShort {
+	if [[ $# > 0 ]]; then
+	     curl http://wttr.in/$1 > /tmp/wttrin 2>/dev/null && head -n 7 /tmp/wttrin
+	else
+	     curl http://wttr.in/ > /tmp/wttrin 2>/dev/null && head -n 7 /tmp/wttrin
+    fi
+}
+
+function getWeatherLong {
+	if [[ $# > 0 ]]; then
+		curl http://wttr.in/$1
+	else
+		curl http://wttr.in
+    fi
+}
+
+#Parse arguments
+while [[ $# > 0 ]]; do
+	KEY="$1"
+	case $KEY in 
+	-d|--detail)
+		SHOW_DETAIL=1
+		shift
+		;;
+	-h|--help)
+		SHOW_HELP=1
+		shift
+		;;
+	*)
+		CITY=$1
+	    shift
+	esac
+done
+
+if [[ ${SHOW_HELP} > 0 ]]; then
+	showUsage
+	exit 0
+fi
+
+if [[ ${SHOW_DETAIL} > 0 ]]; then
+	getWeatherLong ${CITY}
+else
+	getWeatherShort ${CITY}
+fi
+
