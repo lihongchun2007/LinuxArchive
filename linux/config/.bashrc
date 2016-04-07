@@ -140,5 +140,4 @@ extract () {
   fi
 }
 
-export PYTHONPATH=$PYTHONPATH:/home/lee/workspace/caffe/python/:/home/lee/workspace/BING-Objectness-master/build/
 export PATH=$PATH:~/.bin/
