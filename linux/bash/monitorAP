@@ -25,16 +25,11 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-export wlanDev=$1
-export logPath=./log/
-export logFile=`date +%H_%M_%S`;
+export WLAN_DEV=$1
 
-function showAllAP 
-{ 
-    iwlist $wlanDev scan |grep -iE 'cell|essid|signal' >> $logPath$logFile.log; 
-    iwlist $wlanDev scan |grep -iE 'cell|essid|signal'; 
+function showAllAP { 
+    iwlist ${WLAN_DEV} scan |grep -iE 'cell|essid|signal'; 
 }
 export -f showAllAP
 
 watch -n 2 -d bash -c showAllAP
-
