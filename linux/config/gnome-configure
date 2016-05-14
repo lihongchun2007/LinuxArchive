@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Disable Gnome Shell shortcuts
+gsettings set org.gnome.mutter overlay-key ''
