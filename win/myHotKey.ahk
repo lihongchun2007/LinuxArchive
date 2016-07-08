@@ -6,11 +6,12 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;; disable Win key behavior of popping up the Start Menu, but don't disable Win+‹key› combination
 ~LWin Up::Return
 ~RWin Up::Return
-F1::Return
+
 
 ;;Start applications
 F5::Run, explorer.exe e/`,
 F4::Run, C:\Windows\System32\cmd.exe /A /Q /K C:\msys64\msys2_shell.bat
+F1::Run, E:\software\Wox-v1.2.0-beta.2\Wox.exe
 
 ;;Window management
 #c::WinClose, A
@@ -55,3 +56,7 @@ ToggleWinMax()
 	}
 }
 #m::ToggleWinMax()
+
+#1::Run, E:\Program Files (x86)\VirtuaWin\Virtuawin.exe -msg 1034 1
+#2::Run, E:\Program Files (x86)\VirtuaWin\Virtuawin.exe -msg 1034 2
+#3::Run, E:\Program Files (x86)\VirtuaWin\Virtuawin.exe -msg 1034 3
