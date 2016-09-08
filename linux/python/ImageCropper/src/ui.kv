@@ -1,0 +1,109 @@
+#:import ImageCropWidget ImageCropWidget
+
+<ImageCropUI>:
+    editImgDir: editImgDir
+    spinnerClassName: spinnerClassName
+    labelClassID: labelClassID
+    imageWidget: imageWidget
+    labelImageName: labelImageName
+
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'horizontal'
+        height: '30sp'
+        size_hint: 1, None
+        padding: '2sp'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, .6
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        Button:
+            id: buttonImgDir
+            width: '100sp'
+            text: 'Image Dir...'
+            size_hint: None, 1
+            on_press: root.select_image_dir()
+        TextInput:
+            id: editImgDir
+            multiline: False
+            width: '250sp'
+            size_hint: None, 1
+        Widget:
+        Button:
+            id: buttonPrevious
+            text: 'Previous'
+            width: '80sp'
+            size_hint: None, 1
+            on_press: root.on_button_previous()
+        Widget:
+            width: '5sp'
+            size_hint: None, 1
+        Button:
+            id: buttonSaveNext
+            text: 'Next'
+            width: '80sp'
+            size_hint: None, 1
+            on_press: root.on_button_next()
+        Widget:
+        Label:
+            id: labelClassID
+            text: '0'
+            width: '50sp'
+            size_hint: None, 1
+            color: 0, 0, 0, 1
+            bold: True
+        Spinner:
+            id: spinnerClassName
+            width: '200sp'
+            size_hint: None, 1
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 1, 1
+        ImageCropWidget:
+            id: imageWidget
+            size_hint: 1, 1
+            #source: '/tmp/test.jpg'
+            keep_ratio: False
+            mipmap: True
+            nocache: True
+        BoxLayout:
+            orientation: 'horizontal'
+            height: '30sp'
+            size_hint: 1, None
+            padding: '2sp'
+            canvas:
+                Color:
+                    rgba: 1, 1, 1, 0.2
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                id:labelImageName
+                size_hint: 1, 1
+                width: '300sp'
+                color: 1, 1, 1, 1
+                #bold: True
+
+<ImageDirDialog>:
+    filechooser: filechooser
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+
+        FileChooserListView:
+            id: filechooser
+            path: root.path
+    
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+
+            Button:
+                text: "Cancel"
+                on_release: root.on_cancel()
+            Button:
+                text: "OK"
+                on_release: root.on_ok(filechooser.path, filechooser.selection)
