@@ -2,6 +2,9 @@
 
 Tools and configuration files of my computer runing Linux and Windows.
 
+## Tools
+- `calendar` A latex script to generate calendars using tikz
+
 ## Bash scripts in linux/bash
 - `monitorAP` Monitor status of WiFi APs
 - `weather` Check weather from wttr.in in terminal
