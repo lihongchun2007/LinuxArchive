@@ -95,20 +95,29 @@
             year label left,
             every year/.append style={font=\Large\sffamily\bfseries,
                 green!50!black},
-            if={(Sunday, Saturday) [red!70]},
+            if={(weekend) [red!70]},
             week list sunday,
         }]
         \matrix[column sep=1em, row sep=1em] {
-            \calendar[dates=2017-01-01 to 2017-01-last,draw year]; &
-            \calendar[dates=2017-02-01 to 2017-02-last]; &
+            \calendar[dates=2017-01-01 to 2017-01-last,draw year] if (equals=2017-01-01, between=2017-01-26 and 2017-01-29) [blue!70]
+            									       if (equals=2017-01-02, between=2017-01-30 and 2017-01-31) [red!70]
+            									       if (equals=2017-01-22) [black]
+            									       if (equals=2017-01-25) [blue!35]; &
+            \calendar[dates=2017-02-01 to 2017-02-last] if (between=2017-02-01 and 2017-02-02) [red!70]
+            								   if (equals=2017-02-04) [black]; &
             \calendar[dates=2017-03-01 to 2017-03-last]; &
-            \calendar[dates=2017-04-01 to 2017-04-last]; \\
-            \calendar[dates=2017-05-01 to 2017-05-last]; &
+            \calendar[dates=2017-04-01 to 2017-04-last] if (equals=2017-04-01) [black] 
+            							        if (equals=2017-04-03) [red!70]
+            							        if (equals=2017-04-04) [blue!70]; \\
+            \calendar[dates=2017-05-01 to 2017-05-last] if (equals=2017-05-01, equals=2017-05-30) [blue!70]
+            								   if (between=2017-05-28 and 2017-05-29) [red!70]
+            								   if (equals=2017-05-27) [black]; &
             \calendar[dates=2017-06-01 to 2017-06-last]; &
-            \calendar[dates=2017-07-01 to 2017-07-last]; &
+            \calendar[dates=2017-07-01 to 2017-07-last] if (equals=2017-07-14, equals=2017-07-17) [blue!70]; &
             \calendar[dates=2017-08-01 to 2017-08-last]; \\
-            \calendar[dates=2017-09-01 to 2017-09-last]; &
-            \calendar[dates=2017-10-01 to 2017-10-last]; &
+            \calendar[dates=2017-09-01 to 2017-09-last] if (equals=2017-09-30) [black]; &
+            \calendar[dates=2017-10-01 to 2017-10-last] if (between=2017-10-01 and 2017-10-04) [blue!70]
+            								   if (between=2017-10-05 and 2017-10-06) [red!70]; &
             \calendar[dates=2017-11-01 to 2017-11-last]; &
             \calendar[dates=2017-12-01 to 2017-12-last]; \\
         };
