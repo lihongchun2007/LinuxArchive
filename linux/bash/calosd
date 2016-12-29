@@ -1,0 +1,12 @@
+#!/bin/bash
+
+## Based on https://snippets.aktagon.com/tags/843-osd-cat
+
+font="-*-*-medium-*-*-*-16-*-*-*-*-*-*-*"
+month=`date "+%m %y"`
+cal_head=`cal -m $month | head -1`
+cal_tail=`cal -m $month | tail -7`
+today=`date "+%e"| sed 's/^ *//;s/ *$//'`
+cal="$cal_head\n" 
+cal+=$(echo -en "${cal_tail/${today}/*${today}}\n")
+echo -e "$cal" | osd_cat -c green -l 8 -i 10 -o 10 -f $font -p bottom -A right -s 1 &

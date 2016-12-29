@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Based on https://snippets.aktagon.com/tags/843-osd-cat
+
+font="-*-*-medium-*-*-*-16-*-*-*-*-*-*-*"
+cpuInfo=`top -bn1 |grep -ie '%CPU[0-9]'`
+top -bn2 |grep -ie '%CPU[0-9]' | osd_cat -c green -l 8 -i 10 -o 25 -f $font -p bottom -A right -s 1 &
