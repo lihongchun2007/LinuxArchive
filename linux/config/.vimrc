@@ -140,7 +140,7 @@ set completeopt=preview,menu
 "允许插件  
 filetype plugin on
 "共享剪贴板  
-set clipboard+=unnamed 
+set clipboard+=unnamedplus
 "从不备份  
 set nobackup
 "make 运行
@@ -174,7 +174,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 " 不要用空格代替制表符
-set noexpandtab
+set expandtab
 " 在行和段开始处使用制表符
 set smarttab
 " 显示行号
