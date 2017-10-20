@@ -1,3 +1,5 @@
+call pathogen#infect()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示相关  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -21,7 +23,7 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strf
 set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)  
 "set foldenable      " 允许折叠  
 set foldmethod=manual   " 手动折叠  
-"set background=dark "背景使用黑色 
+set background=dark   "背景使用黑色 
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
 " 显示中文帮助
 if version >= 603
@@ -30,11 +32,18 @@ if version >= 603
 endif
 " 设置配色方案
 "colorscheme vividchalk
-colorscheme candy
+"colorscheme candy
+"colorscheme slate
+let g:solarized_termcolors=256
+let g:solarized_visibility="normal"
+colorscheme solarized
+highlight Normal ctermbg=none
+
 "字体 
-"if (has("gui_running")) 
+if (has("gui_running")) 
 "   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10 
-"endif 
+    set t_Co=256
+endif 
 
  
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
@@ -56,7 +65,7 @@ func SetTitle()
         call append(line(".")+1, "\#########################################################################") 
         call append(line(".")+2, "\# File Name: ".expand("%")) 
         call append(line(".")+3, "\# Author: Li Hongchun") 
-        call append(line(".")+4, "\# Mail: lihongchun2007@foxmail.com") 
+        call append(line(".")+4, "\# Mail: lihongchun@cn.fujitsu.com")
         call append(line(".")+5, "\# Created Time: ".strftime("%c")) 
         call append(line(".")+6, "\#########################################################################") 
         call append(line(".")+7, "") 
@@ -64,7 +73,7 @@ func SetTitle()
         call setline(1, "/*************************************************************************") 
         call append(line("."), "    > File Name: ".expand("%")) 
         call append(line(".")+1, "    > Author: Li Hongchun") 
-        call append(line(".")+2, "    > Mail: lihongchun2007@foxmail.com") 
+        call append(line(".")+2, "    > Mail: lihongchun@cn.fujitsu.com")
         call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
         call append(line(".")+4, " ************************************************************************/") 
         call append(line(".")+5, "")

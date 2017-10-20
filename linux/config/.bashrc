@@ -36,6 +36,7 @@ fi
 case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
+export TERM=xterm-256color
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
@@ -59,7 +60,8 @@ fi
 #    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
 #fi
 #PS1="[\u@\h:\[\e[33m\]\W]\\[\033[00m\]\$ "
-PS1="\n\$(if [[ \$? == 0 ]]; then echo \"\[\033[0;34m\]\"; else echo \"\[\033[0;31m\]\"; fi)\342\226\210\342\226\210 [ \u@\W ] [ \t ]\n\[\033[0m\]\342\226\210\342\226\210 "
+#PS1="\n\$(if [[ \$? == 0 ]]; then echo \"\[\033[0;34m\]\"; else echo \"\[\033[0;31m\]\"; fi)\342\226\210\342\226\210 [ \u@\W ] [ \t ]\n\[\033[0m\]\342\226\210\342\226\210 "
+PS1="\n\$(if [[ \$? == 0 ]]; then echo \"\[\033[0;32m\]\"; else echo \"\[\033[0;31m\]\"; fi)\342\226\210\342\226\210 [ \u@\W ] [ \t ]\n\[\033[0m\]\342\226\210\342\226\210 "
 unset color_prompt force_color_prompt
 
 # enable color support of ls and also add handy aliases
@@ -112,7 +114,10 @@ alias vi=vim
 
 # Tmux config: If not running interactively, do not do anything
 [[ $- != *i* ]] && return
-[[ -z "$TMUX" ]] && exec tmux
+#[[ -z "$TMUX" ]] && exec tmux
+if [ -z ${TMUX} ]; then
+    tmux attach || tmux
+fi
 
 ##ibus configuration
 #export GTK_IM_MODULE=ibus
