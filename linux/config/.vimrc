@@ -339,3 +339,6 @@ let g:miniBufExplModSelTarget = 1
 "" See lazy loading plugins section in README.md for details
 "" call vam#Scripts('~/.vim-scripts', {'tag_regex': '.*'})
 "
+
+"plugins
+"lightline
