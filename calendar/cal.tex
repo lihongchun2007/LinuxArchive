@@ -1,125 +1,51 @@
 \documentclass{standalone}
-% An example how to use the calendar library and modify the layout, i.e. put
-% Sunday as the first week day.
-%
-% Author: Berteun Damman
+
+%\usepackage[top=15mm, bottom=15mm, left=15mm, right=15mm]{geometry}
 \usepackage{tikz}
+
 \usetikzlibrary{calendar}
+
 \begin{document}
-    \makeatletter
 
-    % This way you can define your own conditions, for example, you
-    % could make something as `full moon', `even week', `odd week',
-    % et cetera. In principle. The math in TeX could be hard.
-    \pgfkeys{/pgf/calendar/start of year/.code={%
-        \ifnum\pgfcalendarifdateday=1\relax%
-            \ifnum\pgfcalendarifdatemonth=1\relax\pgfcalendarmatchestrue\fi%
-        \fi%
-    }}%
-
-    % Define our own style
-    \tikzstyle{week list sunday}=[
-        % Note that we cannot extend from week list,
-        % the execute before day scope is cumulative
-        execute before day scope={%
-               \ifdate{day of month=1}{\ifdate{equals=\pgfcalendarbeginiso}{}{
-               % On first of month, except when first date in calendar.
-                   \pgfmathsetlength{\pgf@y}{\tikz@lib@cal@month@yshift}%
-                   \pgftransformyshift{-\pgf@y}
-               }}{}%
-        },
-        execute at begin day scope={%
-            % Because for TikZ Monday is 0 and Sunday is 6,
-            % we can't directly use \pgfcalendercurrentweekday,
-            % but instead we define \c@pgf@counta (basically) as:
-            % (\pgfcalendercurrentweekday + 1) % 7
-            \pgfmathsetlength\pgf@x{\tikz@lib@cal@xshift}%
-            \ifnum\pgfcalendarcurrentweekday=6
-                \c@pgf@counta=0
-            \else
-                \c@pgf@counta=\pgfcalendarcurrentweekday
-                \advance\c@pgf@counta by 1
-            \fi
-            \pgf@x=\c@pgf@counta\pgf@x
-            % Shift to the right position for the day.
-            \pgftransformxshift{\pgf@x}
-        },
-        execute after day scope={
-            % Week is done, shift to the next line.
-            \ifdate{Saturday}{
-                \pgfmathsetlength{\pgf@y}{\tikz@lib@cal@yshift}%
-                \pgftransformyshift{-\pgf@y}
-            }{}%
-        },
-        % This should be defined, glancing from the source code.
-        tikz@lib@cal@width=7
-    ]
-
-    % New style for drawing the year, it is always drawn
-    % for January
-    \tikzstyle{year label left}=[
-        execute before day scope={
-            \ifdate{start of year}{
-                \drawyear
-            }{}
-        },
-        % Right align
-        every year/.append style={
-            anchor=east,
-        }
-    ]
-
-    % Style to force giving a month a year label.
-    \tikzset{draw year/.style={
-        execute before day scope={
-            \ifdate{day of month=1}{\drawyear}{}
-        }
-    }}
-
-    % This actually draws the year.
-    \newcommand{\drawyear}{
-        \pgfmathsetlength{\pgf@x}{\tikz@lib@cal@xshift}%
-        \pgftransformxshift{-\pgf@x}
-        % \tikzyearcode is defined by default
-        \tikzyearcode
-        \pgfmathsetlength{\pgf@x}{\tikz@lib@cal@xshift}%
-        \pgftransformxshift{\pgf@x}
-    }
-
-    \makeatother
-
-    % The actual calendar is now rather easy:
-    \begin{tikzpicture}[every calendar/.style={
-            month label above centered,
+\begin{tikzpicture}[every calendar/.style={
+		 day code = {\ifdate{equals=2018-01-01, between=2018-02-15 and 2018-02-21, between=2018-04-05 and 2018-04-07, between=2018-04-29 and 2018-04-30, between=2018-06-16 and 2018-06-18, between=2018-09-22 and 2018-09-24, between=2018-10-01 and 2018-10-07} %Rest weekday
+		             {\fill[red!40] (-8pt, 0) circle[radius=2pt] node[name=\pgfcalendarsuggestedname,every day,right, black!50]{\tikzdaytext};}
+		             {\ifdate{equals=2018-02-11, equals=2018-02-24, equals=2018-04-08, equals=2018-04-28, between=2018-09-29 and 2018-09-30} %Non-rest weekend
+		                 {\fill[black!50] (-8pt, 0) circle[radius=2pt] node[name=\pgfcalendarsuggestedname,every day,right, black]{\tikzdaytext};}
+		                 {\ifdate{equals=2017-01-02} %Half-rest day
+		                     {\draw[red!50] (-8pt, 0) circle[radius=2pt] circle[radius=1pt, fill=red!50] node[name=\pgfcalendarsuggestedname,every day,right, black]{\tikzdaytext};}
+		                     {\ifdate{weekend} %Weekend
+		                         {\fill[red!40] (-8pt, 0) circle[radius=2pt] node[name=\pgfcalendarsuggestedname,every day,right, black!50]{\tikzdaytext};}
+		                         {\fill[black!50] (-8pt, 0) circle[radius=2pt] node[name=\pgfcalendarsuggestedname,every day,right, black]{\tikzdaytext};}
+                                }
+                            }
+		             }
+                       },
+            month label above left,
             month text={\textit{\%mt}},
-            year label left,
             every year/.append style={font=\Large\sffamily\bfseries,
                 green!50!black},
-            if={(weekend) [red!70]},
-            week list sunday,
+		 day list downward, 
         }]
-        \matrix[column sep=1em, row sep=1em] {
-            \calendar[dates=2017-01-01 to 2017-01-last,draw year] if (equals=2017-01-01, between=2017-01-26 and 2017-01-29) [blue!70]
-            									       if (equals=2017-01-02, between=2017-01-30 and 2017-01-31) [red!70]
-            									       if (equals=2017-01-22) [black]
-            									       if (equals=2017-01-25) [blue!35]; &
-            \calendar[dates=2017-02-01 to 2017-02-last] if (between=2017-02-01 and 2017-02-02) [red!70]
-            								   if (equals=2017-02-04) [black]; &
-            \calendar[dates=2017-03-01 to 2017-03-last]; &
-            \calendar[dates=2017-04-01 to 2017-04-last] if (equals=2017-04-01) [black] 
-            							        if (equals=2017-04-03) [red!70]
-            							        if (equals=2017-04-04) [blue!70]; \\
-            \calendar[dates=2017-05-01 to 2017-05-last] if (equals=2017-05-01, equals=2017-05-30) [blue!70]
-            								   if (between=2017-05-28 and 2017-05-29) [red!70]
-            								   if (equals=2017-05-27) [black]; &
-            \calendar[dates=2017-06-01 to 2017-06-last]; &
-            \calendar[dates=2017-07-01 to 2017-07-last] if (equals=2017-07-14, equals=2017-07-17) [blue!70]; &
-            \calendar[dates=2017-08-01 to 2017-08-last]; \\
-            \calendar[dates=2017-09-01 to 2017-09-last] if (equals=2017-09-30) [black]; &
-            \calendar[dates=2017-10-01 to 2017-10-last] if (between=2017-10-01 and 2017-10-04) [blue!70]
-            								   if (between=2017-10-05 and 2017-10-06) [red!70]; &
-            \calendar[dates=2017-11-01 to 2017-11-last]; &
-            \calendar[dates=2017-12-01 to 2017-12-last]; \\
-        };
-    \end{tikzpicture}
+
+\matrix[column sep=1em, row sep=1em, text width=25pt] {
+    \calendar [dates=2018-01-01 to 2018-01-last, name=cal01];&
+    \calendar [dates=2018-02-01 to 2018-02-last, name=cal02];&
+    \calendar [dates=2018-03-01 to 2018-03-last, name=cal03];&
+    \calendar [dates=2018-04-01 to 2018-04-last, name=cal04];&
+    \calendar [dates=2018-05-01 to 2018-05-last, name=cal05];&
+    \calendar [dates=2018-06-01 to 2018-06-last, name=cal06];&
+    \calendar [dates=2018-07-01 to 2018-07-last, name=cal07];&
+    \calendar [dates=2018-08-01 to 2018-08-last, name=cal08];&
+    \calendar [dates=2018-09-01 to 2018-09-last, name=cal09];&
+    \calendar [dates=2018-10-01 to 2018-10-last, name=cal10];&
+    \calendar [dates=2018-11-01 to 2018-11-last, name=cal11];&
+    \calendar [dates=2018-12-01 to 2018-12-last, name=cal12];&
+    \\
+};
+
+\node [anchor=east, green!50!black] at (cal01-2018-01-01.base west) {\Large\sffamily\bfseries{2018}};
+
+\end{tikzpicture}
+
 \end{document}
