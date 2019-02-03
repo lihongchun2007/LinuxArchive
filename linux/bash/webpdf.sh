@@ -1,5 +1,9 @@
 #!/bin/bash
 
+http_proxy="10.167.32.133:8080"
+https_proxy="10.167.32.133:8080"
+
+
 if [ -z "$1" ]; then
    echo "Convert web page of URL into a pdf file. Requires curl and jq."
    echo
@@ -21,6 +25,6 @@ PDF_URL=$(jq -r '.Files[0].Url' ${TMP_FILE})
 echo 'PDF URL:', $PDF_URL
 
 if [[ $PDF_URL == http* ]]; then
-   wget ${PDF_URL}
+   curl ${PDF_URL} --output pdf_web.pdf
 fi
 
