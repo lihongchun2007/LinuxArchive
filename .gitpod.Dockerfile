@@ -2,9 +2,9 @@ FROM gitpod/workspace-full
 
 USER gitpod
 
-ARG DEBIAN_FRONTEND=noninteractive
-RUN sudo apt-get update \
- && sudo apt-get install -y \
+ARG DEBIAN_FRONTEND noninteractive
+RUN sudo apt-get -q update \
+ && sudo apt-get install -yq \
     libssl-dev \
     lynx \
     youtube-dl \
