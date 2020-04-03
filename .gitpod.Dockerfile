@@ -2,7 +2,7 @@ FROM gitpod/workspace-full
 
 USER gitpod
 
-ARG DEBIAN_FRONTEND noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 RUN sudo apt-get -q update \
  && sudo apt-get install -yq \
     libssl-dev \
