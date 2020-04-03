@@ -1,10 +1,9 @@
 FROM gitpod/workspace-full
 
-#USER gitpod
-USER root
+USER gitpod
 
 RUN sudo apt-get update \
- && sudo apt-get install -yq \
+ && sudo apt-get install -y \
     libssl-dev \
     lynx \
     youtube-dl \
